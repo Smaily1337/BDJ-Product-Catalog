@@ -3,14 +3,14 @@ import { useState, useMemo, ReactNode, FormEvent, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import 'react-phone-number-input/style.css';
 import { 
-  Search, 
-  Filter, 
-  ChevronRight, 
+  Search,
+  Filter,
+  ChevronRight,
   ChevronDown,
-  Zap, 
-  Weight, 
-  Maximize, 
-  ArrowRight, 
+  Zap,
+  Weight,
+  Maximize,
+  ArrowRight,
   Info,
   Package,
   Cpu,
@@ -27,7 +27,11 @@ import {
   Route,
   Cylinder,
   Gauge,
-  Globe
+  Globe,
+  User,
+  Building2,
+  Hash,
+  MapPin
 } from 'lucide-react';
 import PhoneInput from 'react-phone-number-input';
 import { products, Product } from './data/products';
@@ -82,10 +86,29 @@ export default function App() {
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ email: '', phone: '', message: '' });
+  const [formData, setFormData] = useState({ firstName: '', lastName: '', company: '', taxId: '', email: '', phone: '', country: '', message: '' });
 
   const t = translations[lang];
   const groups = ['Maszyny', 'Akcesoria', 'Kompresory'];
+
+  const DUCT_VALUES = [5, 7, 10, 12, 14, 16, 20, 32, 40, 50];
+  const getProductName = (p: Product) => (p.nameLocalized?.[lang] ?? p.name);
+  const isMultiTube = (range: string) => range.toLowerCase().includes('multi') || range.toLowerCase().includes('tube');
+
+  const MACHINE_COMPRESSORS: Record<string, string[]> = {
+    'bdj-next':                   ['atmos-pdh76', 'atmos-pdp20', 'atmos-pb82', 'kaeser-m17a', 'acc-compressor'],
+    'bdj-budget':                 ['atmos-pdh76', 'atmos-pdp20', 'atmos-pb82', 'kaeser-m17a', 'acc-compressor'],
+    'bdj-budget-easy-set':        ['atmos-pdh76', 'atmos-pdp20', 'atmos-pb82', 'kaeser-m17a', 'acc-compressor'],
+    'bdj-budget-plus':            ['atmos-pdh76', 'atmos-pdp20', 'atmos-pb82', 'kaeser-m17a', 'acc-compressor'],
+    'bdj-budget-plus-easy-set':   ['atmos-pdh76', 'atmos-pdp20', 'atmos-pb82', 'kaeser-m17a', 'acc-compressor'],
+    'bdj-mini':                   ['atmos-pdh76', 'atmos-pdp20', 'atmos-pb82', 'kaeser-m17a', 'acc-compressor'],
+    'bdj-mini-counter':           ['atmos-pdh76', 'atmos-pdp20', 'atmos-pb82', 'kaeser-m17a', 'acc-compressor'],
+    'bdj-extended':               ['atmos-pdh76', 'atmos-pdp50', 'atmos-pdp20', 'atmos-pb82', 'kaeser-m17a', 'acc-compressor'],
+    'bdj-max':                    ['kaeser-m82a', 'acc-compressor'],
+    'bdj-hydro-belt-cable':       ['kaeser-m82a', 'acc-compressor'],
+    'bdj-hydro-chain-cable':      ['kaeser-m82a', 'acc-compressor'],
+    'bdj-hydro-chain-multi-tube': ['kaeser-m82a', 'acc-compressor'],
+  };
 
   const parseRange = (rangeStr: string): { min: number, max: number, values?: number[] } | null => {
     if (!rangeStr) return null;
@@ -134,14 +157,15 @@ export default function App() {
     setActiveImage(null);
     setIsInquiryOpen(false);
     setIsSubmitted(false);
-    setFormData({ email: '', phone: '', message: '' });
+    setFormData({ firstName: '', lastName: '', company: '', taxId: '', email: '', phone: '', country: '', message: '' });
   };
 
   const filteredProducts = useMemo(() => {
     const search = searchQuery.toLowerCase().trim();
     return products.filter((p) => {
-      const matchesSearch = !search || 
-                           p.name.toLowerCase().includes(search) || 
+      const matchesSearch = !search ||
+                           p.name.toLowerCase().includes(search) ||
+                           (p.nameLocalized?.[lang] ?? '').toLowerCase().includes(search) ||
                            p.description[lang].toLowerCase().includes(search) ||
                            (p.subName[lang] && p.subName[lang].toLowerCase().includes(search));
       
@@ -424,20 +448,20 @@ export default function App() {
                         </div>
 
                         <div className="relative py-4">
-                          <input 
-                            type="range" 
-                            min="0" 
-                            max="63" 
+                          <input
+                            type="range"
+                            min="0"
+                            max={DUCT_VALUES.length}
                             step="1"
-                            value={ductFilter || 0}
+                            value={ductFilter ? DUCT_VALUES.indexOf(ductFilter) + 1 : 0}
                             onChange={(e) => {
-                              const val = parseFloat(e.target.value);
-                              setDuctFilter(val === 0 ? null : val);
+                              const idx = parseInt(e.target.value);
+                              setDuctFilter(idx === 0 ? null : DUCT_VALUES[idx - 1]);
                             }}
                             className="range-input w-full"
                           />
                           <div className="flex justify-between mt-4 px-1">
-                            {[0, 10, 20, 32, 40, 50, 63].map((v) => (
+                            {[0, 5, 10, 16, 20, 32, 40, 50].map((v) => (
                               <span key={v} className="text-[9px] font-bold text-zinc-300 font-mono">{v}</span>
                             ))}
                           </div>
@@ -511,7 +535,7 @@ export default function App() {
                           
                           <div className="p-8">
                             <h3 className="text-2xl font-black mb-1 group-hover:text-brand-primary transition-colors uppercase tracking-tight text-brand-dark">
-                              {product.name}
+                              {getProductName(product)}
                             </h3>
                             {product.subName[lang] && (
                               <p className="text-xs font-bold text-brand-primary uppercase tracking-wider mb-3">
@@ -523,6 +547,7 @@ export default function App() {
                             </p>
                             
                             <div className="grid grid-cols-3 gap-4 mb-8">
+                              {!isMultiTube(product.specs.cableRange) && (
                               <div className="space-y-2">
                                 <div className="w-8 h-8 rounded-lg bg-brand-primary/10 flex items-center justify-center">
                                   <Cable className="w-4 h-4 text-brand-primary" />
@@ -530,6 +555,7 @@ export default function App() {
                                 <span className="text-[9px] uppercase tracking-wider text-zinc-400 font-bold block">{t.cable}</span>
                                 <p className="text-[10px] font-mono text-brand-dark leading-none">{product.specs.cableRange}</p>
                               </div>
+                              )}
                               <div className="space-y-2">
                                 <div className="w-8 h-8 rounded-lg bg-brand-primary/10 flex items-center justify-center">
                                   <Cylinder className="w-4 h-4 text-brand-primary" />
@@ -646,7 +672,7 @@ export default function App() {
                               {selectedProduct.category} Series
                             </span>
                             <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-2 text-brand-dark leading-none">
-                              {selectedProduct.name}
+                              {getProductName(selectedProduct)}
                             </h2>
                             {selectedProduct.subName[lang] && (
                               <p className="text-sm md:text-base font-bold text-brand-primary uppercase tracking-widest mb-6">
@@ -657,6 +683,7 @@ export default function App() {
 
                           {/* Quick Specs Summary - Visible on Mobile/Tablet */}
                           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10 md:hidden">
+                            {!isMultiTube(selectedProduct.specs.cableRange) && (
                             <div className="p-4 rounded-2xl bg-zinc-50 border border-zinc-100">
                               <div className="flex items-center gap-2 mb-2">
                                 <Cable className="w-3.5 h-3.5 text-brand-primary" />
@@ -664,6 +691,7 @@ export default function App() {
                               </div>
                               <p className="text-xs font-black text-brand-dark">{selectedProduct.specs.cableRange}</p>
                             </div>
+                            )}
                             <div className="p-4 rounded-2xl bg-zinc-50 border border-zinc-100">
                               <div className="flex items-center gap-2 mb-2">
                                 <Cylinder className="w-3.5 h-3.5 text-brand-primary" />
@@ -694,8 +722,38 @@ export default function App() {
                             </ul>
                           </div>
 
+                          {/* Zalecane kompresory */}
+                          {MACHINE_COMPRESSORS[selectedProduct.id] && (
+                            <div className="mb-12">
+                              <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-600 border-b border-zinc-100 pb-3 mb-6">
+                                {t.recommendedCompressors}
+                              </h4>
+                              <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+                                {MACHINE_COMPRESSORS[selectedProduct.id].map(cid => {
+                                  const comp = products.find(p => p.id === cid);
+                                  if (!comp) return null;
+                                  return (
+                                    <button
+                                      key={cid}
+                                      onClick={() => { setSelectedProduct(comp); setActiveImage(null); }}
+                                      className="flex-shrink-0 w-36 text-left bg-zinc-50 border border-zinc-200 rounded-2xl overflow-hidden hover:border-brand-primary hover:shadow-lg transition-all group"
+                                    >
+                                      <div className="h-20 bg-white flex items-center justify-center p-2 border-b border-zinc-100">
+                                        <img src={comp.image} alt={comp.name} className="h-full w-full object-contain group-hover:scale-105 transition-transform" referrerPolicy="no-referrer" />
+                                      </div>
+                                      <div className="p-3">
+                                        <p className="text-[10px] font-black text-brand-dark leading-tight line-clamp-2 mb-1">{comp.name}</p>
+                                        <p className="text-[9px] text-brand-primary font-bold">{comp.specs.maxPressure[lang]}</p>
+                                      </div>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          )}
+
                           <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                            <button 
+                            <button
                               onClick={() => setIsInquiryOpen(true)}
                               className="flex-1 py-5 bg-brand-primary hover:opacity-90 text-white font-bold rounded-2xl transition-all uppercase tracking-[0.2em] text-xs shadow-2xl shadow-brand-primary/40 glow-blue"
                             >
@@ -730,7 +788,7 @@ export default function App() {
                                 </tr>
                               </thead>
                               <tbody className="divide-y divide-zinc-100">
-                                <TableRow label={t.cable} value={selectedProduct.specs.cableRange} icon={<Cable className="w-4 h-4" />} />
+                                {!isMultiTube(selectedProduct.specs.cableRange) && <TableRow label={t.cable} value={selectedProduct.specs.cableRange} icon={<Cable className="w-4 h-4" />} />}
                                 <TableRow label={t.duct} value={selectedProduct.specs.ductRange} icon={<Cylinder className="w-4 h-4" />} />
                                 <TableRow label={t.distance} value={selectedProduct.specs.blowingDistance[lang]} icon={<Route className="w-4 h-4" />} />
                                 <TableRow label={t.pressure} value={selectedProduct.specs.maxPressure[lang]} icon={<Gauge className="w-4 h-4" />} />
@@ -763,16 +821,81 @@ export default function App() {
                               {t.inquiry}
                             </h2>
                             <p className="text-zinc-500">
-                              {lang === 'PL' ? 'Wypełnij formularz dla modelu' : 'Fill the form for model'} <span className="text-brand-primary font-bold">{selectedProduct.name}</span>.
+                              {lang === 'PL' ? 'Wypełnij formularz dla modelu' : 'Fill the form for model'} <span className="text-brand-primary font-bold">{getProductName(selectedProduct)}</span>.
                             </p>
                           </div>
 
                           <form onSubmit={handleInquirySubmit} className="space-y-6">
+                            {/* Imię i Nazwisko */}
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="space-y-2">
+                                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">{t.formFirstName}</label>
+                                <div className="relative">
+                                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                                  <input
+                                    required
+                                    type="text"
+                                    placeholder={t.formFirstName}
+                                    value={formData.firstName}
+                                    onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                                    className="w-full bg-zinc-50 border border-zinc-200 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 transition-all text-brand-dark"
+                                  />
+                                </div>
+                              </div>
+                              <div className="space-y-2">
+                                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">{t.formLastName}</label>
+                                <div className="relative">
+                                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                                  <input
+                                    required
+                                    type="text"
+                                    placeholder={t.formLastName}
+                                    value={formData.lastName}
+                                    onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                                    className="w-full bg-zinc-50 border border-zinc-200 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 transition-all text-brand-dark"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Nazwa firmy */}
+                            <div className="space-y-2">
+                              <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">{t.formCompany}</label>
+                              <div className="relative">
+                                <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                                <input
+                                  required
+                                  type="text"
+                                  placeholder={t.formCompany}
+                                  value={formData.company}
+                                  onChange={(e) => setFormData({...formData, company: e.target.value})}
+                                  className="w-full bg-zinc-50 border border-zinc-200 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 transition-all text-brand-dark"
+                                />
+                              </div>
+                            </div>
+
+                            {/* NIP / VAT */}
+                            <div className="space-y-2">
+                              <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">{t.formTaxId}</label>
+                              <div className="relative">
+                                <Hash className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                                <input
+                                  required
+                                  type="text"
+                                  placeholder="NIP / VAT"
+                                  value={formData.taxId}
+                                  onChange={(e) => setFormData({...formData, taxId: e.target.value})}
+                                  className="w-full bg-zinc-50 border border-zinc-200 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 transition-all text-brand-dark"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Email */}
                             <div className="space-y-2">
                               <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">{t.formEmail}</label>
                               <div className="relative">
                                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
-                                <input 
+                                <input
                                   required
                                   type="email"
                                   placeholder="twoj@email.com"
@@ -783,6 +906,7 @@ export default function App() {
                               </div>
                             </div>
 
+                            {/* Telefon */}
                             <div className="space-y-2">
                               <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">{t.formPhone}</label>
                               <div className="bg-white border border-zinc-200 rounded-2xl px-4 py-3 focus-within:border-brand-primary focus-within:ring-4 focus-within:ring-brand-primary/10 transition-all">
@@ -796,12 +920,28 @@ export default function App() {
                               </div>
                             </div>
 
+                            {/* Kraj */}
+                            <div className="space-y-2">
+                              <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">{t.formCountry}</label>
+                              <div className="relative">
+                                <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                                <input
+                                  required
+                                  type="text"
+                                  placeholder={t.formCountry}
+                                  value={formData.country}
+                                  onChange={(e) => setFormData({...formData, country: e.target.value})}
+                                  className="w-full bg-zinc-50 border border-zinc-200 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 transition-all text-brand-dark"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Wiadomość */}
                             <div className="space-y-2">
                               <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 ml-1">{t.formMessage}</label>
                               <div className="relative">
                                 <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-zinc-400" />
-                                <textarea 
-                                  required
+                                <textarea
                                   rows={4}
                                   placeholder="..."
                                   value={formData.message}

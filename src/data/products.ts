@@ -3,6 +3,7 @@ import { Language } from '../translations';
 export interface Product {
   id: string;
   name: string;
+  nameLocalized?: { [key in Language]: string };
   subName: { [key in Language]: string };
   group: 'Maszyny' | 'Akcesoria' | 'Kompresory';
   category: string;
@@ -573,6 +574,12 @@ export const products: Product[] = [
   {
     id: 'acc-head-m',
     name: 'Nowa głowica „M”',
+    nameLocalized: {
+      PL: 'Nowa głowica „M”',
+      EN: 'New Head “M”',
+      DE: 'Neuer Kopf „M”',
+      ES: 'Nueva Cabeza “M”'
+    },
     subName: {
       PL: 'Innowacja, która ułatwi Twoją pracę',
       EN: 'Innovation that will make your work easier',
@@ -619,6 +626,12 @@ export const products: Product[] = [
   {
     id: 'bdj-brain',
     name: 'Rejestrator BDJ Brain',
+    nameLocalized: {
+      PL: 'Rejestrator BDJ Brain',
+      EN: 'BDJ Brain Recorder',
+      DE: 'BDJ Brain Aufzeichnungsgerät',
+      ES: 'Registrador BDJ Brain'
+    },
     subName: {
       PL: 'Inteligentny system rejestracji parametrów',
       EN: 'Intelligent parameter registration system',
@@ -707,6 +720,12 @@ export const products: Product[] = [
   {
     id: 'acc-y-connector',
     name: 'Złącze Y BDJ',
+    nameLocalized: {
+      PL: 'Złącze Y BDJ',
+      EN: 'BDJ Y-Connector',
+      DE: 'BDJ Y-Verbinder',
+      ES: 'Conector Y BDJ'
+    },
     subName: {
       PL: 'Dodmuchaj drugi kabel do rury',
       EN: 'Blow a second cable into the duct',
@@ -840,6 +859,278 @@ export const products: Product[] = [
       EN: ['High efficiency', 'Mobility', 'Low fuel consumption'],
       DE: ['Hohe Effizienz', 'Mobilität', 'Niedriger Kraftstoffverbrauch'],
       ES: ['Alta eficiencia', 'Movilidad', 'Bajo consumo de combustible']
+    }
+  },
+  {
+    id: 'atmos-pdh76',
+    name: 'Kompresor ATMOS PDH 76',
+    subName: {
+      PL: 'Mobilna sprężarka śrubowa',
+      EN: 'Mobile screw compressor',
+      DE: 'Mobiler Schraubenkompressor',
+      ES: 'Compresor de tornillo móvil'
+    },
+    group: 'Kompresory',
+    category: 'ATMOS',
+    description: {
+      PL: 'Sprężarki serii ATMOS PDP można łatwo dostosować do różnych potrzeb. W zależności od lokalizacji i wymagań klienta dostępne są różne opcje, takie jak chłodnica końcowa, wymiennik ciepła, tace ociekowe na olej chroniące wrażliwe środowiska, zawór Chalwyn i iskiernik do pracy w niebezpiecznych warunkach, na przykład w rafineriach. Dedykowany dla: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.',
+      EN: 'ATMOS PDP series compressors can be easily adapted to various needs. Depending on the location and customer requirements, different options are available: aftercooler, heat exchanger, oil drip trays for sensitive environments, Chalwyn valve and spark arrester for hazardous conditions such as refineries. Dedicated for: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.',
+      DE: 'Kompressoren der ATMOS PDP-Serie lassen sich leicht an verschiedene Anforderungen anpassen. Je nach Standort und Kundenanforderungen stehen verschiedene Optionen zur Verfügung: Nachkühler, Wärmetauscher, Ölauffangwannen, Chalwyn-Ventil und Funkenfänger für gefährliche Umgebungen wie Raffinerien. Geeignet für: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.',
+      ES: 'Los compresores de la serie ATMOS PDP se pueden adaptar fácilmente a diversas necesidades. Según la ubicación y los requisitos del cliente, se dispone de opciones como postenfriador, intercambiador de calor, bandejas anti-goteo de aceite, válvula Chalwyn y apagachispas para entornos peligrosos como refinerías. Dedicado para: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.'
+    },
+    specs: {
+      cableRange: 'N/A',
+      ductRange: 'N/A',
+      blowingDistance: {
+        PL: '7,6 m³/min',
+        EN: '7.6 m³/min',
+        DE: '7,6 m³/min',
+        ES: '7,6 m³/min'
+      },
+      maxPressure: {
+        PL: '7 bar',
+        EN: '7 bar',
+        DE: '7 bar',
+        ES: '7 bar'
+      },
+      weight: 'N/A'
+    },
+    image: 'https://bluedragonjet.com/wp-content/uploads/2024/07/1.png',
+    gallery: [
+      'https://bluedragonjet.com/wp-content/uploads/2024/07/1.png',
+      'https://bluedragonjet.com/wp-content/uploads/2024/07/3.png'
+    ],
+    features: {
+      PL: ['Konfigurowalny osprzęt', 'Praca w trudnych warunkach', 'Wydajność 7,6 m³/min'],
+      EN: ['Configurable accessories', 'Operation in harsh conditions', 'Flow 7.6 m³/min'],
+      DE: ['Konfigurierbares Zubehör', 'Betrieb unter schwierigen Bedingungen', 'Förderleistung 7,6 m³/min'],
+      ES: ['Accesorios configurables', 'Operación en condiciones difíciles', 'Caudal 7,6 m³/min']
+    }
+  },
+  {
+    id: 'atmos-pdp50',
+    name: 'Kompresor ATMOS PDP 50',
+    subName: {
+      PL: 'Najnowszy model serii PDP',
+      EN: 'Latest PDP series model',
+      DE: 'Neuestes Modell der PDP-Serie',
+      ES: 'Último modelo de la serie PDP'
+    },
+    group: 'Kompresory',
+    category: 'ATMOS',
+    description: {
+      PL: 'ATMOS PDP 50 to najnowszy model z popularnej serii, stworzony z myślą o europejskich klientach i zgodności z najnowszymi normami ochrony środowiska. Oferuje zakres ciśnień roboczych: 7, 10, 12 i 14 barów, co czyni ją idealną do różnorodnych zastosowań. Wyposażona w elektroniczny system sterowania monitorujący kluczowe parametry w czasie rzeczywistym. Wbudowany zbiornik paliwa pozwala na 8-godzinną pracę. Dedykowany dla: BDJ STANDARD, BDJ EXTENDED.',
+      EN: 'The ATMOS PDP 50 is the latest model in the popular series, designed for European customers and compliance with the latest environmental standards. It offers working pressure ranges of 7, 10, 12 and 14 bar, making it ideal for various applications. Equipped with an electronic control system monitoring key parameters in real time. Built-in fuel tank allows 8 hours of operation. Dedicated for: BDJ STANDARD, BDJ EXTENDED.',
+      DE: 'Der ATMOS PDP 50 ist das neueste Modell der beliebten Serie, entwickelt für europäische Kunden und Konformität mit den neuesten Umweltnormen. Er bietet Arbeitsdruckbereiche von 7, 10, 12 und 14 bar. Ausgestattet mit einem elektronischen Steuerungssystem zur Echtzeitüberwachung. Eingebauter Kraftstofftank ermöglicht 8-stündigen Betrieb. Geeignet für: BDJ STANDARD, BDJ EXTENDED.',
+      ES: 'El ATMOS PDP 50 es el modelo más reciente de la popular serie, diseñado para clientes europeos y conformidad con las últimas normas ambientales. Ofrece rangos de presión de trabajo de 7, 10, 12 y 14 bar. Equipado con un sistema de control electrónico que monitorea parámetros clave en tiempo real. El depósito de combustible integrado permite 8 horas de operación. Dedicado para: BDJ STANDARD, BDJ EXTENDED.'
+    },
+    specs: {
+      cableRange: 'N/A',
+      ductRange: 'N/A',
+      blowingDistance: {
+        PL: '3 m³/min',
+        EN: '3 m³/min',
+        DE: '3 m³/min',
+        ES: '3 m³/min'
+      },
+      maxPressure: {
+        PL: '14 bar',
+        EN: '14 bar',
+        DE: '14 bar',
+        ES: '14 bar'
+      },
+      weight: 'N/A'
+    },
+    image: 'https://bluedragonjet.com/wp-content/uploads/2024/07/2.png',
+    gallery: [
+      'https://bluedragonjet.com/wp-content/uploads/2024/07/2.png'
+    ],
+    features: {
+      PL: ['Ciśnienie 7–14 bar', 'Elektroniczny system sterowania', '8h praca na jednym zbiorniku'],
+      EN: ['7–14 bar pressure range', 'Electronic control system', '8h operation on one tank'],
+      DE: ['7–14 bar Druckbereich', 'Elektronisches Steuerungssystem', '8h Betrieb pro Tank'],
+      ES: ['Rango de presión 7–14 bar', 'Sistema de control electrónico', '8h de operación por depósito']
+    }
+  },
+  {
+    id: 'atmos-pdp20',
+    name: 'Kompresor ATMOS PDP20',
+    subName: {
+      PL: 'Sprężarka z silnikiem Perkins',
+      EN: 'Compressor with Perkins engine',
+      DE: 'Kompressor mit Perkins-Motor',
+      ES: 'Compresor con motor Perkins'
+    },
+    group: 'Kompresory',
+    category: 'ATMOS',
+    description: {
+      PL: 'Kompresor mobilny renomowanej firmy ATMOS CHRÁST, model PDP20 z silnikiem diesla Perkins 403J-11. Wyróżnia się trwałością i doskonałymi parametrami umożliwiającymi pracę nawet w najbardziej wymagających warunkach. Wyposażony w układ łagodnego rozruchu – kompresor po uruchomieniu pracuje na biegu jałowym, osiągając właściwe parametry ciśnienia i temperatury oleju. Dedykowany dla: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.',
+      EN: 'Mobile compressor from the renowned ATMOS CHRÁST company, model PDP20 with a Perkins 403J-11 diesel engine. Distinguished by durability and excellent parameters enabling operation even in the most demanding conditions. Equipped with a soft-start system – after starting, the compressor runs at idle to reach proper pressure and oil temperature. Dedicated for: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.',
+      DE: 'Mobiler Kompressor des renommierten Unternehmens ATMOS CHRÁST, Modell PDP20 mit Perkins 403J-11 Dieselmotor. Ausgezeichnet durch Langlebigkeit und hervorragende Parameter auch unter anspruchsvollsten Bedingungen. Ausgestattet mit Sanftanlaufsystem. Geeignet für: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.',
+      ES: 'Compresor móvil de la reconocida empresa ATMOS CHRÁST, modelo PDP20 con motor diésel Perkins 403J-11. Distinguido por su durabilidad y excelentes parámetros incluso en las condiciones más exigentes. Equipado con sistema de arranque suave. Dedicado para: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.'
+    },
+    specs: {
+      cableRange: 'N/A',
+      ductRange: 'N/A',
+      blowingDistance: {
+        PL: '2,9 / 2,5 / 1,9 m³/min',
+        EN: '2.9 / 2.5 / 1.9 m³/min',
+        DE: '2,9 / 2,5 / 1,9 m³/min',
+        ES: '2,9 / 2,5 / 1,9 m³/min'
+      },
+      maxPressure: {
+        PL: '7 / 10 / 14 bar',
+        EN: '7 / 10 / 14 bar',
+        DE: '7 / 10 / 14 bar',
+        ES: '7 / 10 / 14 bar'
+      },
+      weight: '690 kg'
+    },
+    image: 'https://bluedragonjet.com/wp-content/uploads/2023/03/5858-thickbox_default-Sprezarka-przewozna-ATMOS-Chrast-PDP-20.jpg',
+    gallery: [
+      'https://bluedragonjet.com/wp-content/uploads/2023/03/5858-thickbox_default-Sprezarka-przewozna-ATMOS-Chrast-PDP-20.jpg'
+    ],
+    features: {
+      PL: ['Silnik Perkins 403J-11', 'Układ łagodnego rozruchu', 'Trzy zakresy ciśnienia'],
+      EN: ['Perkins 403J-11 engine', 'Soft-start system', 'Three pressure ranges'],
+      DE: ['Perkins 403J-11 Motor', 'Sanftanlaufsystem', 'Drei Druckbereiche'],
+      ES: ['Motor Perkins 403J-11', 'Sistema de arranque suave', 'Tres rangos de presión']
+    }
+  },
+  {
+    id: 'atmos-pb82',
+    name: 'Kompresor ATMOS PB82',
+    subName: {
+      PL: 'Sprężarka do wdmuchiwarek',
+      EN: 'Compressor for blowing machines',
+      DE: 'Kompressor für Einblasmaschinen',
+      ES: 'Compresor para máquinas de soplado'
+    },
+    group: 'Kompresory',
+    category: 'ATMOS',
+    description: {
+      PL: 'Kompresor Atmos PB82 – niezbędny do prawidłowej pracy wdmuchiwarek, umożliwiający osiągnięcie maksymalnego zasięgu wdmuchiwania. Na życzenie dostępna chłodnica końcowa sprężonego powietrza i osuszacz. Dedykowany dla: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.',
+      EN: 'The Atmos PB82 compressor – essential for the proper operation of blowing machines, enabling maximum blowing range. Aftercooler and dryer available on request. Dedicated for: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.',
+      DE: 'Der Atmos PB82 Kompressor – unverzichtbar für den ordnungsgemäßen Betrieb von Einblasmaschinen und maximale Einblasreichweite. Nachkühler und Trockner auf Anfrage erhältlich. Geeignet für: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.',
+      ES: 'El compresor Atmos PB82 – imprescindible para el correcto funcionamiento de las máquinas de soplado y el máximo alcance. Postenfriador y secador disponibles bajo pedido. Dedicado para: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.'
+    },
+    specs: {
+      cableRange: 'N/A',
+      ductRange: 'N/A',
+      blowingDistance: {
+        PL: '1 m³/min',
+        EN: '1 m³/min',
+        DE: '1 m³/min',
+        ES: '1 m³/min'
+      },
+      maxPressure: {
+        PL: '14 bar',
+        EN: '14 bar',
+        DE: '14 bar',
+        ES: '14 bar'
+      },
+      weight: 'N/A'
+    },
+    image: 'https://bluedragonjet.com/wp-content/uploads/2023/02/Kompresor111.png',
+    gallery: [
+      'https://bluedragonjet.com/wp-content/uploads/2023/02/Kompresor111.png'
+    ],
+    features: {
+      PL: ['Maksymalny zasięg wdmuchiwania', 'Chłodnica i osuszacz na życzenie', 'Ciśnienie 14 bar'],
+      EN: ['Maximum blowing range', 'Aftercooler & dryer on request', '14 bar pressure'],
+      DE: ['Maximale Einblasreichweite', 'Nachkühler & Trockner auf Anfrage', '14 bar Druck'],
+      ES: ['Máximo alcance de soplado', 'Postenfriador y secador bajo pedido', 'Presión 14 bar']
+    }
+  },
+  {
+    id: 'kaeser-m17a',
+    name: 'Kompresor KAESER M17A',
+    subName: {
+      PL: 'Sprężarka z separatorem cyklonowym',
+      EN: 'Compressor with cyclone separator',
+      DE: 'Kompressor mit Zyklon-Abscheider',
+      ES: 'Compresor con separador ciclónico'
+    },
+    group: 'Kompresory',
+    category: 'KAESER',
+    description: {
+      PL: 'KAESER M17A – kompresor niezbędny do prawidłowej pracy wdmuchiwarek, umożliwiający osiągnięcie maksymalnego zasięgu wdmuchiwania. W komplecie chłodnica końcowa sprężonego powietrza i separator cyklonowy. Dedykowany dla: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.',
+      EN: 'KAESER M17A – compressor essential for the proper operation of blowing machines, enabling maximum blowing range. Includes aftercooler and cyclone separator. Dedicated for: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.',
+      DE: 'KAESER M17A – Kompressor, der für den ordnungsgemäßen Betrieb von Einblasmaschinen unverzichtbar ist. Nachkühler und Zyklon-Abscheider im Lieferumfang enthalten. Geeignet für: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.',
+      ES: 'KAESER M17A – compresor imprescindible para el correcto funcionamiento de las máquinas de soplado. Incluye postenfriador y separador ciclónico. Dedicado para: BDJ BUDGET, BDJ MINI, BDJ STANDARD, BDJ EXTENDED.'
+    },
+    specs: {
+      cableRange: 'N/A',
+      ductRange: 'N/A',
+      blowingDistance: {
+        PL: '1 m³/min',
+        EN: '1 m³/min',
+        DE: '1 m³/min',
+        ES: '1 m³/min'
+      },
+      maxPressure: {
+        PL: '15 bar',
+        EN: '15 bar',
+        DE: '15 bar',
+        ES: '15 bar'
+      },
+      weight: 'N/A'
+    },
+    image: 'https://bluedragonjet.com/wp-content/uploads/2023/02/Projekt-bez-nazwy-1.png',
+    gallery: [
+      'https://bluedragonjet.com/wp-content/uploads/2023/02/Projekt-bez-nazwy-1.png',
+      'https://bluedragonjet.com/wp-content/uploads/2023/02/kaeser-m13-miete-dia-11_big.jpg'
+    ],
+    features: {
+      PL: ['Separator cyklonowy w komplecie', 'Chłodnica końcowa', 'Ciśnienie 15 bar'],
+      EN: ['Cyclone separator included', 'Aftercooler included', '15 bar pressure'],
+      DE: ['Zyklon-Abscheider enthalten', 'Nachkühler enthalten', '15 bar Druck'],
+      ES: ['Separador ciclónico incluido', 'Postenfriador incluido', 'Presión 15 bar']
+    }
+  },
+  {
+    id: 'kaeser-m82a',
+    name: 'Kompresor KAESER M82A',
+    subName: {
+      PL: 'Sprężarka do ciężkich wdmuchiwarek',
+      EN: 'Compressor for heavy blowing machines',
+      DE: 'Kompressor für schwere Einblasmaschinen',
+      ES: 'Compresor para máquinas de soplado pesadas'
+    },
+    group: 'Kompresory',
+    category: 'KAESER',
+    description: {
+      PL: 'Sprężarka KAESER M82A – kompresor do najcięższych wdmuchiwarek. Niezbędny do prawidłowej pracy, umożliwiający osiągnięcie maksymalnego zasięgu wdmuchiwania. W komplecie chłodnica końcowa sprężonego powietrza i separator cyklonowy. Dedykowany dla: BDJ MAX, BDJ HYDRO, BDJ HYDRO CHAIN, BDJ MULTI TUBE.',
+      EN: 'KAESER M82A compressor – for the heaviest blowing machines. Essential for proper operation and maximum blowing range. Includes aftercooler and cyclone separator. Dedicated for: BDJ MAX, BDJ HYDRO, BDJ HYDRO CHAIN, BDJ MULTI TUBE.',
+      DE: 'KAESER M82A Kompressor – für die schwersten Einblasmaschinen. Unverzichtbar für ordnungsgemäßen Betrieb und maximale Einblasreichweite. Nachkühler und Zyklon-Abscheider im Lieferumfang. Geeignet für: BDJ MAX, BDJ HYDRO, BDJ HYDRO CHAIN, BDJ MULTI TUBE.',
+      ES: 'Compresor KAESER M82A – para las máquinas de soplado más pesadas. Imprescindible para el funcionamiento correcto y el máximo alcance. Incluye postenfriador y separador ciclónico. Dedicado para: BDJ MAX, BDJ HYDRO, BDJ HYDRO CHAIN, BDJ MULTI TUBE.'
+    },
+    specs: {
+      cableRange: 'N/A',
+      ductRange: 'N/A',
+      blowingDistance: {
+        PL: '8,4 m³/min',
+        EN: '8.4 m³/min',
+        DE: '8,4 m³/min',
+        ES: '8,4 m³/min'
+      },
+      maxPressure: {
+        PL: '7 bar',
+        EN: '7 bar',
+        DE: '7 bar',
+        ES: '7 bar'
+      },
+      weight: 'N/A'
+    },
+    image: 'https://bluedragonjet.com/wp-content/uploads/2023/02/C-M82_46-76153.jpg',
+    gallery: [
+      'https://bluedragonjet.com/wp-content/uploads/2023/02/C-M82_46-76153.jpg'
+    ],
+    features: {
+      PL: ['Wydajność 8,4 m³/min', 'Separator cyklonowy w komplecie', 'Do największych wdmuchiwarek'],
+      EN: ['Flow 8.4 m³/min', 'Cyclone separator included', 'For the largest blowing machines'],
+      DE: ['Förderleistung 8,4 m³/min', 'Zyklon-Abscheider enthalten', 'Für größte Einblasmaschinen'],
+      ES: ['Caudal 8,4 m³/min', 'Separador ciclónico incluido', 'Para las mayores máquinas de soplado']
     }
   }
 ];
